@@ -1,7 +1,7 @@
 import FakeUsersRepository from '@modules/users/repositories/fakes/FakeUserRepository';
 import CreateUserService from '@modules/users/services/CreateUserService';
 import AppError from '@shared/errors/AppError';
-import FakeHashProvider from '@shared/providers/HashProvider/FakeHashProvider';
+import FakeHashProvider from '@shared/container/providers/HashProvider/FakeHashProvider';
 
 let fakeUsersRepository: FakeUsersRepository;
 let fakeHashProvider: FakeHashProvider;

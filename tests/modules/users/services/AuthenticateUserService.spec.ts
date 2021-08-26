@@ -1,5 +1,5 @@
 import FakeUsersRepository from '@modules/users/repositories/fakes/FakeUserRepository';
-import FakeHashProvider from '@shared/providers/HashProvider/FakeHashProvider';
+import FakeHashProvider from '@shared/container/providers/HashProvider/FakeHashProvider';
 import AuthenticateUserService from '@modules/users/services/AuthenticateUserService';
 import AppError from '@shared/errors/AppError';
 
