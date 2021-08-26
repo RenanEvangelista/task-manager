@@ -2,7 +2,7 @@ import AppError from '@shared/errors/AppError';
 import { Request, Response, NextFunction } from 'express';
 
 const handleErrorsMiddleware = (
-  err: AppError,
+  err: Error,
   _request: Request,
   response: Response,
   next: NextFunction,
@@ -11,6 +11,14 @@ const handleErrorsMiddleware = (
     return response.status(err.statusCode).json({
       status: 'error',
       message: err.message,
+    });
+  }
+
+  if (err instanceof Error) {
+    console.log(err);
+    return response.status(500).json({
+      status: 'error',
+      message: 'internal server error',
     });
   }
 
