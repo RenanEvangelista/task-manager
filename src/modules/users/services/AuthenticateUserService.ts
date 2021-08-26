@@ -3,6 +3,7 @@ import { sign } from 'jsonwebtoken';
 
 import authConfig from '@config/auth';
 import AppError from '@shared/errors/AppError';
+import IHashProvider from '@shared/providers/HashProvider/IHashProvider';
 import User from '../models/user';
 import IUsersRepository from '../repositories/IUsersRepository';
 
@@ -20,6 +21,9 @@ class AuthenticateUserService {
   constructor(
     @inject('UsersRepository')
     private readonly usersRepository: IUsersRepository,
+
+    @inject('HashProvider')
+    private readonly hashProvider: IHashProvider,
   ) {}
 
   async execute({ email, password }: IRequest): Promise<Response> {
@@ -27,6 +31,10 @@ class AuthenticateUserService {
 
     if (!user) {
       throw new AppError('user not found');
+    }
+
+    if (!(await this.hashProvider.compare(password, user.password))) {
+      throw new AppError('incorret password');
     }
 
     const { secret, expiresIn } = authConfig.jwt;
