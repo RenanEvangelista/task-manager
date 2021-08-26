@@ -5,7 +5,9 @@ import ICreateUserDTO from '@modules/users/dtos/ICreateUserDTO';
 import IUsersRepository from '../IUsersRepository';
 
 class TypeOrmUserRepository implements IUsersRepository {
-  constructor(private readonly userRepository: Repository<UserEntity>) {
+  private readonly userRepository: Repository<UserEntity>;
+
+  constructor() {
     this.userRepository = getRepository(UserEntity);
   }
 

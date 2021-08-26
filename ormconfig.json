@@ -5,6 +5,9 @@
   "username": "postgres",
   "password": "docker",
   "database": "task_manager",
+  "entities": [
+    "./src/shared/infra/database/typeorm/entities/*.ts"
+  ],
   "migrations": [
     "./src/shared/infra/database/typeorm/migrations/*.ts"
   ],
