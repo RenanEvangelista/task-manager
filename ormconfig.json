@@ -4,5 +4,11 @@
   "port": 5432,
   "username": "postgres",
   "password": "docker",
-  "database": "task_manager"
+  "database": "task_manager",
+  "migrations": [
+    "./src/shared/infra/database/typeorm/migrations/*.ts"
+  ],
+  "cli": {
+    "migrationsDir": "./src/shared/infra/database/typeorm/migrations"
+  }
 }
