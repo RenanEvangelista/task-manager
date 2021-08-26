@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
+import { parseISO } from 'date-fns';
+
 import CreateTaskService from '@modules/tasks/services/CreateTaskService';
 
 class TasksController {
@@ -11,8 +13,10 @@ class TasksController {
 
     const createTaskService = container.resolve(CreateTaskService);
 
+    const dateParsedIso = parseISO(date);
+
     const task = await createTaskService.execute({
-      date,
+      date: dateParsedIso,
       name,
       description,
       user_id,
