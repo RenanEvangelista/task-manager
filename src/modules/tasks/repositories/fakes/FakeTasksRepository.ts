@@ -1,5 +1,5 @@
 import ICreateTaskDTO from '@modules/tasks/dtos/ICreateTaskDTO';
-import Task from '@modules/tasks/models/task';
+import Task from '@modules/tasks/models/Task';
 import { startOfDay, differenceInDays } from 'date-fns';
 import { uuid } from 'uuidv4';
 import ITasksRepository from '../ITasksRepository';

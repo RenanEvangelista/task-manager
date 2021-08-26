@@ -3,7 +3,7 @@ import { inject, injectable } from 'tsyringe';
 
 import ITasksRepository from '../repositories/ITasksRepository';
 
-import Task from '../models/task';
+import Task from '../models/Task';
 
 interface IRequest {
   user_id: string;

@@ -1,5 +1,5 @@
 import ICreateTaskDTO from '../dtos/ICreateTaskDTO';
-import Task from '../models/task';
+import Task from '../models/Task';
 
 export default interface ITasksRepository {
   findById(id: string): Promise<Task | undefined>;
