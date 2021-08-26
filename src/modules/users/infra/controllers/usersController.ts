@@ -3,7 +3,7 @@ import { Response, Request } from 'express';
 
 import CreateUserService from '../../services/CreateUserService';
 
-class usersController {
+class UsersController {
   async create(request: Request, response: Response): Promise<Response> {
     const { name, email, password } = request.body;
 
@@ -19,4 +19,4 @@ class usersController {
   }
 }
 
-export default usersController;
+export default UsersController;
