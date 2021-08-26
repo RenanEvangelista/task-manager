@@ -2,6 +2,7 @@ import { inject, injectable } from 'tsyringe';
 import { sign } from 'jsonwebtoken';
 
 import authConfig from '@config/auth';
+import AppError from '@shared/errors/AppError';
 import User from '../models/user';
 import IUsersRepository from '../repositories/IUsersRepository';
 
@@ -25,7 +26,7 @@ class AuthenticateUserService {
     const user = await this.usersRepository.findByEmail(email);
 
     if (!user) {
-      throw new Error('gafgh');
+      throw new AppError('user not found');
     }
 
     const { secret, expiresIn } = authConfig.jwt;
