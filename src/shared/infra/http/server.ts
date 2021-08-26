@@ -2,6 +2,8 @@ import 'reflect-metadata';
 
 import '../../container';
 
+import '../database/typeorm';
+
 import express from 'express';
 import 'express-async-errors';
 
