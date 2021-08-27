@@ -1,4 +1,3 @@
-import { startOfDay } from 'date-fns';
 import { inject, injectable } from 'tsyringe';
 
 import ITasksRepository from '../repositories/ITasksRepository';
@@ -18,9 +17,7 @@ class ListUserDayTasksService {
   ) {}
 
   async execute({ user_id, date }: IRequest): Promise<Task[] | []> {
-    const startDate = startOfDay(date);
-
-    const list = await this.tasksRepository.findByUserByDay(user_id, startDate);
+    const list = await this.tasksRepository.findByUserByDay(user_id, date);
     return list;
   }
 }
