@@ -16,7 +16,7 @@ class ListUserDayTasksService {
     private readonly tasksRepository: ITasksRepository,
   ) {}
 
-  async execute({ user_id, date }: IRequest): Promise<Task[] | []> {
+  async execute({ user_id, date }: IRequest): Promise<Task[]> {
     const list = await this.tasksRepository.findByUserByDay(user_id, date);
     return list;
   }

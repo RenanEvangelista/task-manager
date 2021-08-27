@@ -1,6 +1,13 @@
 import ICreateTaskDTO from '@modules/tasks/dtos/ICreateTaskDTO';
+import IFindByUserByDateIntervalDTO from '@modules/tasks/dtos/IFindByUserByDateIntervalDTO';
 import Task from '@modules/tasks/models/Task';
-import { startOfDay, differenceInDays, differenceInMonths } from 'date-fns';
+import {
+  startOfDay,
+  differenceInDays,
+  differenceInMonths,
+  isAfter,
+  isBefore,
+} from 'date-fns';
 import { v4 } from 'uuid';
 import ITasksRepository from '../ITasksRepository';
 
@@ -13,7 +20,7 @@ class FakeTasksRepository implements ITasksRepository {
     return task;
   }
 
-  async findByUserByDay(user_id: string, date: Date): Promise<Task[] | []> {
+  async findByUserByDay(user_id: string, date: Date): Promise<Task[]> {
     const tasks = this.tasks.filter(
       (task) => user_id === task.user_id && !differenceInDays(date, task.date),
     );
@@ -21,10 +28,25 @@ class FakeTasksRepository implements ITasksRepository {
     return tasks;
   }
 
-  async findByUserByMonth(user_id: string, date: Date): Promise<Task[] | []> {
+  async findByUserByMonth(user_id: string, date: Date): Promise<Task[]> {
     const tasks = this.tasks.filter(
       (task) =>
         user_id === task.user_id && !differenceInMonths(date, task.date),
+    );
+
+    return tasks;
+  }
+
+  async findByUserByDateInterval({
+    user_id,
+    start_date,
+    end_date,
+  }: IFindByUserByDateIntervalDTO): Promise<Task[]> {
+    const tasks = this.tasks.filter(
+      (task) =>
+        user_id === task.user_id &&
+        isAfter(task.date, start_date) &&
+        isBefore(task.date, end_date),
     );
 
     return tasks;

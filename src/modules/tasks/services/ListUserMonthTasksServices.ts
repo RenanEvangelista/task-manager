@@ -15,7 +15,7 @@ class ListUserMonthTasksService {
     private readonly tasksRepository: ITasksRepository,
   ) {}
 
-  async execute({ user_id, date }: IRequest): Promise<Task[] | []> {
+  async execute({ user_id, date }: IRequest): Promise<Task[]> {
     const tasks = await this.tasksRepository.findByUserByMonth(user_id, date);
 
     return tasks;

@@ -1,5 +1,6 @@
-import { Repository, getRepository, Raw } from 'typeorm';
+import { Repository, getRepository, Raw, Between } from 'typeorm';
 import ICreateTaskDTO from '@modules/tasks/dtos/ICreateTaskDTO';
+import IFindByUserByDateIntervalDTO from '@modules/tasks/dtos/IFindByUserByDateIntervalDTO';
 import Task from '@modules/tasks/models/Task';
 import TaskEntity from '@shared/infra/database/typeorm/entities/Task';
 import { format } from 'date-fns';
@@ -18,7 +19,7 @@ class TypeOrmTasksRepository implements ITasksRepository {
     return task;
   }
 
-  async findByUserByDay(user_id: string, date: Date): Promise<Task[] | []> {
+  async findByUserByDay(user_id: string, date: Date): Promise<Task[]> {
     const Formated = format(date, 'dd-MM-yyyy');
 
     const tasks = await this.tasksRepository.find({
@@ -33,7 +34,7 @@ class TypeOrmTasksRepository implements ITasksRepository {
     return tasks;
   }
 
-  async findByUserByMonth(user_id: string, date: Date): Promise<Task[] | []> {
+  async findByUserByMonth(user_id: string, date: Date): Promise<Task[]> {
     const Formated = format(date, 'MM-yyyy');
 
     const tasks = await this.tasksRepository.find({
@@ -42,6 +43,21 @@ class TypeOrmTasksRepository implements ITasksRepository {
         date: Raw(
           (dateFiled) => `to_char(${dateFiled}, 'MM-YYYY') = '${Formated}'`,
         ),
+      },
+    });
+
+    return tasks;
+  }
+
+  async findByUserByDateInterval({
+    user_id,
+    start_date,
+    end_date,
+  }: IFindByUserByDateIntervalDTO): Promise<Task[]> {
+    const tasks = this.tasksRepository.find({
+      where: {
+        user_id,
+        date: Between(start_date, end_date),
       },
     });
 
