@@ -33,6 +33,21 @@ class TypeOrmTasksRepository implements ITasksRepository {
     return tasks;
   }
 
+  async findByUserByMonth(user_id: string, date: Date): Promise<Task[] | []> {
+    const Formated = format(date, 'MM-yyyy');
+
+    const tasks = await this.tasksRepository.find({
+      where: {
+        user_id,
+        date: Raw(
+          (dateFiled) => `to_char(${dateFiled}, 'MM-YYYY') = '${Formated}'`,
+        ),
+      },
+    });
+
+    return tasks;
+  }
+
   async create(taskData: ICreateTaskDTO): Promise<Task> {
     const task = this.tasksRepository.create(taskData);
 
