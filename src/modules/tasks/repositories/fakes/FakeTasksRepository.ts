@@ -1,7 +1,7 @@
 import ICreateTaskDTO from '@modules/tasks/dtos/ICreateTaskDTO';
 import Task from '@modules/tasks/models/Task';
 import { startOfDay, differenceInDays } from 'date-fns';
-import { uuid } from 'uuidv4';
+import { v4 } from 'uuid';
 import ITasksRepository from '../ITasksRepository';
 
 class FakeTasksRepository implements ITasksRepository {
@@ -28,7 +28,7 @@ class FakeTasksRepository implements ITasksRepository {
     description,
   }: ICreateTaskDTO): Promise<Task> {
     const task: Task = {
-      id: uuid(),
+      id: v4(),
       name,
       user_id,
       date: startOfDay(date),

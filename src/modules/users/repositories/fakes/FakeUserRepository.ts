@@ -1,6 +1,6 @@
 import ICreateUserDTO from 'modules/users/dtos/ICreateUserDTO';
 import User from 'modules/users/models/user';
-import { uuid } from 'uuidv4';
+import { v4 } from 'uuid';
 import IUsersRepository from '../IUsersRepository';
 
 class FakeUsersRepository implements IUsersRepository {
@@ -8,7 +8,7 @@ class FakeUsersRepository implements IUsersRepository {
 
   async create({ email, password, name }: ICreateUserDTO): Promise<User> {
     const user: User = {
-      id: uuid(),
+      id: v4(),
       name,
       email,
       password,
