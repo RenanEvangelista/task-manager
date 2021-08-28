@@ -1,6 +1,7 @@
 import CreateDepartmentService from '@modules/departments/services/CreateDepartmentService';
 import FakeDepartmentsRepository from '@modules/departments/repositories/fakes/FakeDepartmentsRepository';
 import FakeUsersRepository from '@modules/users/repositories/fakes/FakeUserRepository';
+import AppError from '@shared/errors/AppError';
 
 let createDepartmentService: CreateDepartmentService;
 let fakeDepartmentsRepository: FakeDepartmentsRepository;
@@ -12,6 +13,7 @@ describe('CreateDepartmentService', () => {
     fakeDepartmentsRepository = new FakeDepartmentsRepository();
     createDepartmentService = new CreateDepartmentService(
       fakeDepartmentsRepository,
+      fakeUsersRepository,
     );
   });
 
@@ -28,5 +30,14 @@ describe('CreateDepartmentService', () => {
     });
 
     expect(department).toHaveProperty('id');
+  });
+
+  it('should not be able to create a department with non-existing owner', async () => {
+    await expect(
+      createDepartmentService.execute({
+        name: 'Test department',
+        owner_id: 'invalid_owner_id',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
   });
 });
