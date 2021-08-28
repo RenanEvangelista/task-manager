@@ -2,6 +2,7 @@ import FakeTasksRepository from '@modules/tasks/repositories/fakes/FakeTasksRepo
 import FakeUsersRepository from '@modules/users/repositories/fakes/FakeUserRepository';
 import ListDepartmentTasksDateIntervalService from '@modules/tasks/services/ListDepartmentTasksDateIntervalService';
 import FakeDepartmentsRepository from '@modules/departments/repositories/fakes/FakeDepartmentsRepository';
+import AppError from '@shared/errors/AppError';
 
 let listDepartmentTasksDateIntervalService: ListDepartmentTasksDateIntervalService;
 let fakeTasksRepository: FakeTasksRepository;
@@ -48,5 +49,18 @@ describe('ListUserMonthTasksService', () => {
     });
 
     expect(list).toEqual([task]);
+  });
+
+  it('should not be able to list tasks by non-existing department', async () => {
+    const start_date = new Date(2021, 5, 1);
+    const end_date = new Date(2021, 6, 5);
+
+    await expect(
+      listDepartmentTasksDateIntervalService.execute({
+        start_date,
+        end_date,
+        department_id: 'invalid_deparment_id',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
   });
 });
