@@ -7,6 +7,7 @@ import Task from '../models/Task';
 
 interface IRequest {
   user_id: string;
+  department_id?: string;
   date: Date;
   name: string;
   status?: string;
@@ -25,6 +26,7 @@ class CreateTaskService {
 
   async execute({
     user_id,
+    department_id,
     date,
     name,
     description,
@@ -38,6 +40,7 @@ class CreateTaskService {
 
     const task = await this.tasksRepository.create({
       user_id,
+      department_id,
       name,
       date,
       description,

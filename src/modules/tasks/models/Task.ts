@@ -1,6 +1,7 @@
 export default interface Task {
   id: string;
   user_id: string;
+  department_id?: string;
   name: string;
   description?: string;
   status: string;

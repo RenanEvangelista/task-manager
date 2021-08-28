@@ -7,6 +7,7 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
+import Department from './Department';
 
 import User from './User';
 
@@ -26,6 +27,13 @@ class Task {
 
   @Column()
   status: string;
+
+  @Column()
+  department_id: string;
+
+  @ManyToOne(() => Department)
+  @JoinColumn({ name: 'department_id' })
+  department: Department;
 
   @Column()
   user_id: string;

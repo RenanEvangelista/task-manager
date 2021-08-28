@@ -58,6 +58,7 @@ class FakeTasksRepository implements ITasksRepository {
     name,
     date,
     user_id,
+    department_id,
     description,
     status = 'pending',
   }: ICreateTaskDTO): Promise<Task> {
@@ -65,6 +66,7 @@ class FakeTasksRepository implements ITasksRepository {
       id: v4(),
       name,
       user_id,
+      department_id,
       date: startOfMinute(date),
       description,
       status,
