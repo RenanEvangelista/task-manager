@@ -3,6 +3,7 @@ export default interface Task {
   user_id: string;
   name: string;
   description?: string;
+  status: string;
   date: Date;
   created_at: Date;
   updated_at: Date;
