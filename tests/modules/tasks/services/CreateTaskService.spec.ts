@@ -44,4 +44,23 @@ describe('CreateTaskService', () => {
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
+
+  it('ensure the optional parameters are shown', async () => {
+    const user = await fakeUsersRepository.create({
+      email: 'test@test.com',
+      name: 'Test user',
+      password: '12345Rr*',
+    });
+
+    const task = await createTaskService.execute({
+      name: 'Test task',
+      date: new Date(2021, 5, 25, 50, 35, 24),
+      user_id: user.id,
+      description: 'description',
+      status: 'pending',
+    });
+
+    expect(task).toHaveProperty('description');
+    expect(task).toHaveProperty('status');
+  });
 });
