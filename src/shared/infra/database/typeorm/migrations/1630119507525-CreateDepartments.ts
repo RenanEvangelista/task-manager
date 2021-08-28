@@ -36,7 +36,7 @@ export default class CreateDepartments1630119507525
         ],
         foreignKeys: [
           {
-            name: 'DepartmentsUser',
+            name: 'DepartmentsOwner',
             columnNames: ['owner_id'],
             referencedTableName: 'users',
             referencedColumnNames: ['id'],
@@ -49,6 +49,6 @@ export default class CreateDepartments1630119507525
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropForeignKey('departments', 'DepartmentsUser');
+    await queryRunner.dropForeignKey('departments', 'DepartmentsOwner');
   }
 }
