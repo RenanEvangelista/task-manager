@@ -59,6 +59,7 @@ class FakeTasksRepository implements ITasksRepository {
     date,
     user_id,
     description,
+    status = 'pending',
   }: ICreateTaskDTO): Promise<Task> {
     const task: Task = {
       id: v4(),
@@ -66,6 +67,7 @@ class FakeTasksRepository implements ITasksRepository {
       user_id,
       date: startOfMinute(date),
       description,
+      status,
       created_at: new Date(),
       updated_at: new Date(),
     };
