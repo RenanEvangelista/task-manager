@@ -32,6 +32,10 @@ class AddDepartmentUsersService {
       throw new AppError('department not found');
     }
 
+    if (department.owner_id === user.id) {
+      throw new AppError("you can't add yourself to you department");
+    }
+
     if (department.users.find((userFind) => userFind.id === user.id)) {
       throw new AppError('user already added');
     }
