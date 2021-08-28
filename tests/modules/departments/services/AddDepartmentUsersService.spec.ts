@@ -81,4 +81,35 @@ describe('AddDepartmentUsersService', () => {
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
+
+  it('should not be able to add two same users', async () => {
+    const owner = await fakeUsersRepository.create({
+      email: 'owner@owner.com',
+      name: 'Test owner',
+      password: '12345Rr*',
+    });
+
+    const user = await fakeUsersRepository.create({
+      email: 'test@test.com',
+      name: 'Test user',
+      password: '12345Rr*',
+    });
+
+    const department = await fakeDepartmentsRepository.create({
+      name: 'Test Department',
+      owner_id: owner.id,
+    });
+
+    await addDepartmentUsersService.execute({
+      department_id: department.id,
+      user_id: user.id,
+    });
+
+    await expect(
+      addDepartmentUsersService.execute({
+        department_id: department.id,
+        user_id: user.id,
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
 });
