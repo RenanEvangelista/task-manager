@@ -25,6 +25,9 @@ class Task {
   description: string;
 
   @Column()
+  status: string;
+
+  @Column()
   user_id: string;
 
   @ManyToOne(() => User)
