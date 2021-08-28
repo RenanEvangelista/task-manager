@@ -16,12 +16,8 @@ class ListUserTasksDateInterval {
     private readonly tasksRepository: ITasksRepository,
   ) {}
 
-  async execute({ user_id, start_date, end_date }: IRequest): Promise<Task[]> {
-    const tasks = await this.tasksRepository.findByUserByDateInterval({
-      user_id,
-      start_date,
-      end_date,
-    });
+  async execute(data: IRequest): Promise<Task[]> {
+    const tasks = await this.tasksRepository.findByUserByDateInterval(data);
 
     return tasks;
   }
