@@ -7,7 +7,9 @@ import TypeOrmUserRepository from '@modules/users/repositories/implementations/T
 
 import ITasksRepository from '@modules/tasks/repositories/ITasksRepository';
 import TypeOrmTasksRepository from '@modules/tasks/repositories/implementations/TypeOrmTasksRepository';
-// import FakeTasksRepository from '@modules/tasks/repositories/fakes/FakeTasksRepository';
+
+import IDepartmentsRepository from '@modules/departments/repositories/IDepartmentsRepository';
+import TypeOrmDepartmentsRepository from '@modules/departments/repositories/implementations/TypeOrmDepartmentsRepository';
 
 container.registerSingleton<IUsersRepository>(
   'UsersRepository',
@@ -17,4 +19,9 @@ container.registerSingleton<IUsersRepository>(
 container.registerSingleton<ITasksRepository>(
   'TasksRepository',
   TypeOrmTasksRepository,
+);
+
+container.registerSingleton<IDepartmentsRepository>(
+  'DepartmentsRepository',
+  TypeOrmDepartmentsRepository,
 );
