@@ -16,7 +16,10 @@ describe('ListUserMonthTasksService', () => {
     fakeDepartmentsRepository = new FakeDepartmentsRepository();
 
     listDepartmentTasksDateIntervalService =
-      new ListDepartmentTasksDateIntervalService(fakeTasksRepository);
+      new ListDepartmentTasksDateIntervalService(
+        fakeTasksRepository,
+        fakeDepartmentsRepository,
+      );
   });
 
   it('should be able to list tasks by department from custom date interval', async () => {

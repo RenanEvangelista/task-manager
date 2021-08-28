@@ -1,4 +1,5 @@
 import ICreateTaskDTO from '@modules/tasks/dtos/ICreateTaskDTO';
+import IFindByDepartmentByDateIntervalDTO from '@modules/tasks/dtos/IFindByDepartmentByDateIntervalDTO';
 import IFindByUserByDateIntervalDTO from '@modules/tasks/dtos/IFindByUserByDateIntervalDTO';
 import Task from '@modules/tasks/models/Task';
 import {
@@ -47,6 +48,21 @@ class FakeTasksRepository implements ITasksRepository {
     const tasks = this.tasks.filter(
       (task) =>
         user_id === task.user_id &&
+        isAfter(task.date, start_date) &&
+        isBefore(task.date, end_date),
+    );
+
+    return tasks;
+  }
+
+  async findByDepartmentByDateInterval({
+    department_id,
+    start_date,
+    end_date,
+  }: IFindByDepartmentByDateIntervalDTO): Promise<Task[]> {
+    const tasks = this.tasks.filter(
+      (task) =>
+        department_id === task.department_id &&
         isAfter(task.date, start_date) &&
         isBefore(task.date, end_date),
     );

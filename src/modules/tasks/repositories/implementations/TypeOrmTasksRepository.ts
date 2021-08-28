@@ -1,6 +1,7 @@
 import { Repository, getRepository, Raw, Between } from 'typeorm';
 import ICreateTaskDTO from '@modules/tasks/dtos/ICreateTaskDTO';
 import IFindByUserByDateIntervalDTO from '@modules/tasks/dtos/IFindByUserByDateIntervalDTO';
+import IFindByDepartmentByDateIntervalDTO from '@modules/tasks/dtos/IFindByDepartmentByDateIntervalDTO';
 import Task from '@modules/tasks/models/Task';
 import TaskEntity from '@shared/infra/database/typeorm/entities/Task';
 import { format } from 'date-fns';
@@ -57,6 +58,21 @@ class TypeOrmTasksRepository implements ITasksRepository {
     const tasks = this.tasksRepository.find({
       where: {
         user_id,
+        date: Between(start_date, end_date),
+      },
+    });
+
+    return tasks;
+  }
+
+  async findByDepartmentByDateInterval({
+    department_id,
+    start_date,
+    end_date,
+  }: IFindByDepartmentByDateIntervalDTO): Promise<Task[]> {
+    const tasks = await this.tasksRepository.find({
+      where: {
+        department_id,
         date: Between(start_date, end_date),
       },
     });
