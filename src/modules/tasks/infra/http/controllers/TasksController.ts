@@ -9,7 +9,7 @@ class TasksController {
   async create(request: Request, response: Response): Promise<Response> {
     const user_id = request.user.id;
 
-    const { name, description, date } = request.body;
+    const { name, description, date, status } = request.body;
 
     const createTaskService = container.resolve(CreateTaskService);
 
@@ -20,6 +20,7 @@ class TasksController {
       name,
       description,
       user_id,
+      status,
     });
 
     return response.status(201).json(task);
