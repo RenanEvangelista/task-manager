@@ -25,6 +25,8 @@ class FakeDepartmentsRepository implements IDepartmentsRepository {
       users: [],
     };
 
+    this.departments.push(department);
+
     return department;
   }
 
