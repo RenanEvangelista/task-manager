@@ -10,6 +10,7 @@ const departmentUsersController = new DepartmentUsersController();
 
 departmentsRouter.use(ensureAuthenticated);
 
+departmentsRouter.get('/', departmentsController.index);
 departmentsRouter.post('/', departmentsController.create);
 departmentsRouter.post('/users', departmentUsersController.update);
 

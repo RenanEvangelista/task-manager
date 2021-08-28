@@ -12,6 +12,14 @@ class TypeOrmDepartmentsRepository implements IDepartmentsRepository {
     this.departmentsRepository = getRepository(DepartmentEntity);
   }
 
+  async find(): Promise<Department[]> {
+    const departments = await this.departmentsRepository.find({
+      relations: ['users'],
+    });
+
+    return departments;
+  }
+
   async findById(id: string): Promise<Department | undefined> {
     const department = await this.departmentsRepository.findOne(id, {
       relations: ['users'],

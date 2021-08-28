@@ -7,6 +7,10 @@ import IDepartmentsRepository from '../IDepartmentsRepository';
 class FakeDepartmentsRepository implements IDepartmentsRepository {
   private departments: Department[] = [];
 
+  async find(): Promise<Department[]> {
+    return this.departments;
+  }
+
   async findById(id: string): Promise<Department | undefined> {
     const department = this.departments.find(
       (departmentFind) => departmentFind.id === id,
