@@ -66,4 +66,19 @@ describe('AddDepartmentUsersService', () => {
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
+
+  it('should not be able to add a user with a non-existing department', async () => {
+    const user = await fakeUsersRepository.create({
+      email: 'test@test.com',
+      name: 'Test user',
+      password: '12345Rr*',
+    });
+
+    await expect(
+      addDepartmentUsersService.execute({
+        department_id: 'invalid_department_id',
+        user_id: user.id,
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
 });
